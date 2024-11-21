@@ -306,35 +306,42 @@
   }
 }
 
-/* parte del formulario*/
 .container {
-    max-width: 800px;
-    margin: auto;
-    background: #f9f9f9;
-    padding: 50px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
+  max-width: 800px;
+  margin: auto;
+  background: #f9f9f9;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
   h2 {
     font-weight: bold;
   }
   
   .form-label {
-    font-size: 18px;
+    font-size: 15px;
     font-weight: 600;
   }
   
   input {
-    height: 50px; /* Altura personalizada */
+    height: 50px;
   }
   
   button {
-    height: 60px; /* Botón más grande */
-    font-size: 20px;
+    height: 60px;
+    font-size: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
+
+  .row.g-3 .col-md-6 {
+    margin-bottom: 15px; /* Ajusta el valor según lo necesites */
+    padding-right: 15px; /* Espaciado entre columnas */
+  }
   
+  .row.g-3 .col-md-6:last-child {
+    padding-right: 0; /* Evita margen en la última columna */
+  }
   
