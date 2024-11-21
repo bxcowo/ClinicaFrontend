@@ -311,8 +311,11 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 60px); /* Ajustar la altura para excluir la altura de la barra de navegación */
+  height: calc(100vh - 60px);
   text-align: center;
+  border: 2px solid transparent;
+  padding: 20px;
+  border-radius: 8px;
 }
 
 .verificador-container h2 {
@@ -321,10 +324,75 @@
   font-weight: 600;
 }
 
+.verificador-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .verificador-container input {
   padding: 10px;
   font-size: 16px;
   width: 300px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.verificador-container button {
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.verificador-container button:hover {
+  background-color: #0056b3;
+}
+
+.verificador-container.success {
+  border-color: green;
+}
+
+.verificador-container.error {
+  border-color: red;
+}
+
+.message {
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.message.success {
+  color: green;
+}
+
+.message.error {
+  color: red;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 16px;
+  margin: 5px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button[disabled] {
+  cursor: not-allowed;
+}
+
+button:first-of-type {
+  background-color: #007bff;
+  color: #fff;
+}
+
+button:last-of-type {
+  background-color: #6c757d;
+  color: #fff;
 }

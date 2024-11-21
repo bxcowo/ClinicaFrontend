@@ -69,9 +69,22 @@
       <i class='bx bx-menu' ></i>
       <span class="text">Clínicas Psicologías del Perú</span>
     </div>
-    <div class="verificador-container">
-        <h2>Verificador de historias clínicas</h2>
-        <input type="text" placeholder="Ingrese el ID del historial clínico">
+    <div class="verificador-container" [ngClass]="{'success': isValid, 'error': isValid === false}">
+      <h2>Verificador de historias clínicas</h2>
+      <form *ngIf="isValid === null" (ngSubmit)="onSubmit()">
+        <input type="text" placeholder="Ingrese el ID del historial clínico" [(ngModel)]="id" name="id" required>
+        <button type="submit" [disabled]="isLoading">Verificar</button>
+      </form>
+      <div *ngIf="isValid === true">
+        <p class="message success">¡Historial encontrado! 😊</p>
+        <button (click)="onNavigate('/agendar-cita')">Agendar Cita</button>
+        <button (click)="onRetry()">Volver a Intentar</button>
       </div>
+      <div *ngIf="isValid === false">
+        <p class="message error">Historial no encontrado 😞</p>
+        <button (click)="onNavigate('/otro-componente')">Ir a Otro Componente</button>
+        <button (click)="onRetry()">Volver a Intentar</button>
+      </div>
+    </div>
   </section>
 </body>
