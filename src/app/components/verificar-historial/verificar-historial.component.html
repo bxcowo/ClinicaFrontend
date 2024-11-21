@@ -1,31 +1,77 @@
-<div class="container">
-    <h2>Verificación de Historial Clínico</h2>
-  
-    <!-- Formulario para ingresar DNI -->
-    <div class="form-group">
-      <label for="dni">Ingrese el DNI del paciente:</label>
-      <input 
-        id="dni" 
-        type="number" 
-        [(ngModel)]="dni" 
-        class="form-control" 
-        placeholder="Ingrese DNI" 
-        min="1"
-      />
+<div class="sidebar close">
+    <div class="logo-details">
+      <img src="logoClinica.png" alt="Logo" class="logo-image">
+      <span class="logo_name">PAP²</span>
     </div>
-  
-    <button (click)="findHistorialByDniPaciente()" class="btn btn-primary mt-2">
-      Verificar
-    </button>
-  
-    <!-- Mostrar mensaje de éxito -->
-    <div *ngIf="historialClinico" class="mt-4 alert alert-success">
-      Historial clínico encontrado exitosamente.
-    </div>
-  
-    <!-- Mostrar mensaje de error -->
-    <div *ngIf="errorMessage" class="mt-4 alert alert-danger">
-      {{ errorMessage }}
-    </div>
+    <ul class="nav-links">
+      <!-- Otros elementos del menú de navegación -->
+      <li>
+        <a href="#">
+          <i class='bx bx-file-find'></i>
+          <span class="link_name">Historial clínico</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bxs-file-plus'></i>
+          <span class="link_name">Creación de historial</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-plus'></i>
+          <span class="link_name">Agendación de citas</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-user'></i>
+          <span class="link_name">Datos personales</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bxs-bank'></i>
+          <span class="link_name">Términos y condiciones</span>
+        </a>
+      </li>
+      <li>
+        <div class="log-out-section">
+          <i class='bx bx-log-out'></i>
+          <div class="log-out-mes">
+            <div class="log-out-label">Cerrar sesión</div>
+          </div>
+        </div>
+      </li>
+    </ul>
   </div>
+  
+  <section class="home-section">
+    <div class="home-content">
+      <i class='bx bx-menu'></i>
+      <span class="text">Clínicas Psicologías del Perú</span>
+    </div>
+  
+    <div class="verificador-container" [ngClass]="{'success': isValid, 'error': isValid === false}">
+      <h2>Verificador de historias clínicas</h2>
+  
+      <form *ngIf="isValid === null" (ngSubmit)="onSubmit()">
+        <input type="number" placeholder="Ingrese el DNI del paciente" [(ngModel)]="dni" name="dni" required>
+        <button type="submit" [disabled]="isLoading">Verificar</button>
+      </form>
+  
+      <div *ngIf="isValid !== null">
+        <div *ngIf="isValid">
+          <p class="message success">¡Historial encontrado! 😊</p>
+          <button (click)="onNavigate('/agendar-cita')">Agendar Cita</button>
+          <button (click)="onRetry()">Volver a Intentar</button>
+        </div>
+        <div *ngIf="!isValid">
+          <p class="message error">Historial no encontrado 😞</p>
+          <button (click)="onNavigate('/otro-componente')">Ir a Otro Componente</button>
+          <button (click)="onRetry()">Volver a Intentar</button>
+        </div>
+      </div>
+    </div>
+  </section>
   
