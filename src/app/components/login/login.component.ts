@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { UsuarioService } from '../../service/usuario.service';
+import { UsuarioService } from '../../services/usuario.service';
 import { IUsuarioResponse } from '../../model/usuario-response';
 import { CommonModule } from '@angular/common';
 
