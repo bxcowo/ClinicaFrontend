@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { OrdeDePagoService } from '../../service/orde-de-pago.service';
+import { OrdeDePagoService } from '../../services/orde-de-pago.service';
 import { IOrdenDePagoResponse } from '../../model/orden-de-pago-response';
 import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';

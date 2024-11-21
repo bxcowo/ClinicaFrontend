@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HistorialclinicoService } from '../../service/historialclinico.service'; 
+import { HistorialclinicoService } from '../../services/historialclinico.service'; 
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
