@@ -1,1 +1,31 @@
-<p>verificar-historial works!</p>
+<div class="container">
+    <h2>Verificación de Historial Clínico</h2>
+  
+    <!-- Formulario para ingresar DNI -->
+    <div class="form-group">
+      <label for="dni">Ingrese el DNI del paciente:</label>
+      <input 
+        id="dni" 
+        type="number" 
+        [(ngModel)]="dni" 
+        class="form-control" 
+        placeholder="Ingrese DNI" 
+        min="1"
+      />
+    </div>
+  
+    <button (click)="findHistorialByDniPaciente()" class="btn btn-primary mt-2">
+      Verificar
+    </button>
+  
+    <!-- Mostrar mensaje de éxito -->
+    <div *ngIf="historialClinico" class="mt-4 alert alert-success">
+      Historial clínico encontrado exitosamente.
+    </div>
+  
+    <!-- Mostrar mensaje de error -->
+    <div *ngIf="errorMessage" class="mt-4 alert alert-danger">
+      {{ errorMessage }}
+    </div>
+  </div>
+  
