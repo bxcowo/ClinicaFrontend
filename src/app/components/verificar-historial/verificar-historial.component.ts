@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { VerificarHistorialService } from '../../services/verificar-historial.service';
+import { HistorialclinicoService } from '../../service/historialclinico.service'; 
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -9,30 +9,50 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './verificar-historial.component.html',
-  styleUrl: './verificar-historial.component.css'
+  styleUrls: ['./verificar-historial.component.css']
 })
-
 export class VerificarHistorialComponent {
-  id: string = '';
-  isLoading: boolean = false;
-  isValid: boolean | null = null;
-
-  constructor(private verificarHistorialService: VerificarHistorialService, private router: Router) { }
+  dni: number = 0;  
+  historialClinico: any = null;  
+  isLoading: boolean = false;    
+  isValid: boolean | null = null; 
+  errorMessage: string = '';
+  
+  constructor(
+    private historialclinicoService: HistorialclinicoService,  
+    private router: Router
+  ) { }
   
   onSubmit() {
     this.isLoading = true;
-    this.verificarHistorialService.search(this.id).subscribe(isValid => {
-      this.isLoading = false;
-      this.isValid = isValid;
+    this.errorMessage = '';  
+    this.historialclinicoService.findHistorialClinicoByPacienteDni(this.dni).subscribe({
+      next: (response) => {
+        this.isLoading = false;
+        this.historialClinico = response;  
+        this.isValid = true;  
+      },
+      error: (error) => {
+        this.isLoading = false;
+        this.isValid = false;  
+        if (error.status === 500) {
+          this.errorMessage = 'Ocurrió un error inesperado.';
+        } else {
+          this.errorMessage = 'No existe el historial clinico.';
+        }
+        this.historialClinico = null;  
+      }
     });
   }
 
-  onRetry(){
-    this.isValid = null;
-    this.id = '';
+  onRetry() {
+    this.errorMessage = '';  
+    this.dni = 0; 
+    this.historialClinico = null;  
+    this.isValid = null; 
   }
 
-  onNavigate(route: string){
+  onNavigate(route: string) {
     this.router.navigate([route]);
   }
 
