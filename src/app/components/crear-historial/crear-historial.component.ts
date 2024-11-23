@@ -27,7 +27,7 @@ export class CrearHistorialComponent {
   onSubmit() {
     if (this.historialForm.valid) {
       console.log(this.historialForm.value);
-      // Aquí puedes manejar el envío del formulario
+      // proxima implementacion
     }
   }
 

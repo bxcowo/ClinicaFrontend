@@ -345,20 +345,18 @@ select.form-select {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Sombra para destacar */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 button.btn-lg:hover {
   background-color: #0056b3;
 }
 
-/* Iconos en el botón */
 button i {
   margin-right: 8px;
   font-size: 20px;
 }
 
-/* Radio buttons (Horario) */
 .form-check-label {
   font-size: 16px;
 }
@@ -367,10 +365,9 @@ button i {
   margin-top: 6px;
 }
 
-/* Ajustes para pantallas grandes */
 @media (min-width: 992px) {
   .col-md-6 {
-    flex: 0 0 calc(50% - 15px); /* Ocupa más espacio con separación */
+    flex: 0 0 calc(50% - 15px);
     max-width: calc(50% - 15px);
   }
 }

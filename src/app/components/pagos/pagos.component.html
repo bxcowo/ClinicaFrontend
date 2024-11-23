@@ -1,75 +1,120 @@
-<div class="container">
-    <div class="row">
-        <!--Pagos-Cabecera-->
-        <h1>{{title}}</h1>
-        <div class="card">
-            <div class="card-body"></div>
-            <form class="form-group g-4 needs-validation" [formGroup]="buscarOrdenDePagoForm">
-                <div class="row mb-3">
-                  <label for="inputIdOrdenDePago" class="col-sm-2 col-form-label">Orden de Pago</label>
-                  <div class="col-sm-4">
-                    <input
-                        type="text"
-                        class="form-control"
-                        id="inputIdOrdenDePago"
-                        placeholder="Ingrese Orden de Pago"
-                        formControlName="idOrdenDePago"
-                    />
-                  </div>
-                </div>
-                <div class="row mb-2 col-sm-1">
-                    <button class="btn btn-primary" 
-                    (click)="getOrdenDePagoById()">
-                        Buscar
-                    </button>
-                </div>
-              </form>
-        </div>
+<div class="sidebar close">
+    <div class="logo-details">
+      <img src="logoClinica.png" alt="Logo" class="logo-image">
+      <span class="logo_name">PAP²</span>
     </div>
-    <div class="row"> <!--ordeDePago-Detalle-->
-        <div class="card">
+    <ul class="nav-links">
+      <li>
+        <a href="#">
+          <i class='bx bx-file-find'></i>
+          <span class="link_name">Historial clínico</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bxs-file-plus'></i>
+          <span class="link_name">Creación de historial</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-plus'></i>
+          <span class="link_name">Agendación de citas</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bx-user'></i>
+          <span class="link_name">Datos personales</span>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <i class='bx bxs-bank'></i>
+          <span class="link_name">Términos y condiciones</span>
+        </a>
+      </li>
+      <li>
+        <div class="log-out-section">
+          <i class='bx bx-log-out'></i>
+          <div class="log-out-mes">
+            <div class="log-out-label">Cerrar sesión</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  
+  <section class="home-section">
+    <div class="home-content">
+      <i class='bx bx-menu'></i>
+      <span class="text">Clínicas Psicologías del Perú</span>
+    </div>
+    <div class="container">
+        <div class="row">
+          <h1 class="text-center">Pagar Orden de Pago</h1>
+          <div class="card">
             <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table">
-                        <thead>
-                          <tr>
-                            <th scope="col">Codigo de orden de pago</th>
-                            <th scope="col">Paciente</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col">Tipo comprobante de pago</th>
-                            <th scope="col">Importe</th>
-                            <th scope="col">Metodo de Pago</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">Acciones</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr *ngFor="let ordenDePago of ordenDePagoArray 
-                            | paginate: {itemsPerPage:10, currentPage: page}; let i = index">
-                            <td>{{ordenDePago.idOrdenDePago}}</td>
-                            <td>{{ordenDePago.nombresPaciente+" "+ordenDePago.apellidosPaciente}}</td>
-                            <td>{{ordenDePago.fecha}}</td>
-                            <td>{{ordenDePago.comprobanteDePago}}</td>
-                            <td>{{ordenDePago.monto}}</td>
-                            <td>{{ordenDePago.metodoDePago}}</td>
-                            <td>{{ordenDePago.estado}}</td>
-                            <td>
-                                <button class="btn btn-primary">
-                                    Pagar
-                                </button>    
-                            </td>
-                          </tr>
-                        </tbody>
-                    </table>
-                    <pagination-controls 
-                        (pageChange)="page=$event" 
-                        previousLabel="Anterior" 
-                        nextLabel="Siguiente">
-
-                    </pagination-controls>
-                </div>
+              <form class="form-group g-4 needs-validation d-flex align-items-center" [formGroup]="buscarOrdenDePagoForm">
+                <label for="inputIdOrdenDePago" class="form-label me-3">Orden de Pago</label>
+                <input
+                  type="text"
+                  class="form-control me-3"
+                  id="inputIdOrdenDePago"
+                  placeholder="Ingrese Orden de Pago"
+                  formControlName="idOrdenDePago"
+                />
+                <button class="btn btn-primary" (click)="getOrdenDePagoById()">
+                  Buscar
+                </button>
+              </form>
             </div>
+          </div>
         </div>
-    </div>
-</div>
-
+      
+        <div class="row"> 
+          <div class="card">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th scope="col">Código de orden de pago</th>
+                      <th scope="col">Paciente</th>
+                      <th scope="col">Fecha</th>
+                      <th scope="col">Tipo comprobante de pago</th>
+                      <th scope="col">Importe</th>
+                      <th scope="col">Método de Pago</th>
+                      <th scope="col">Estado</th>
+                      <th scope="col">Acciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let ordenDePago of ordenDePagoArray 
+                                  | paginate: { itemsPerPage: 10, currentPage: page }; let i = index">
+                      <td>{{ ordenDePago.idOrdenDePago }}</td>
+                      <td>{{ ordenDePago.nombresPaciente + " " + ordenDePago.apellidosPaciente }}</td>
+                      <td>{{ ordenDePago.fecha }}</td>
+                      <td>{{ ordenDePago.comprobanteDePago }}</td>
+                      <td>{{ ordenDePago.monto }}</td>
+                      <td>{{ ordenDePago.metodoDePago }}</td>
+                      <td>{{ ordenDePago.estado }}</td>
+                      <td>
+                        <button class="btn btn-primary">
+                          Pagar
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <pagination-controls
+                  (pageChange)="page = $event"
+                  previousLabel="Anterior"
+                  nextLabel="Siguiente">
+                </pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
