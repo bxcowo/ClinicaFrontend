@@ -4,6 +4,7 @@ import { IHistorialclinicoResponse } from '../model/historialclinico-response';
 import { BASE_URL } from '../utils/constants';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { IHistorialclinicoRequest } from '../model/historialclinico-request';
 
 @Injectable({
   providedIn: 'root'
@@ -28,4 +29,14 @@ export class HistorialclinicoService {
       })
     );
   }
+
+  insertHistorialClinico(historialclinico: IHistorialclinicoRequest): Observable<IHistorialclinicoResponse> {
+    return this.http.post<IHistorialclinicoResponse>(`${BASE_URL}/historialclinico`, historialclinico).pipe(
+      catchError((err) => {
+        console.error('Error al intentar insertar historial clinico:', err);
+        return throwError(() => new Error('Error al intentar insertar historial clinico'));
+      })
+    );
+  }
+
 }

@@ -1,6 +1,10 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HistorialclinicoService } from '../../services/historialclinico.service';
+import { PacienteService } from '../../services/paciente.service';
+import { IPaciente } from '../../model/paciente';
+import { IHistorialclinicoRequest } from '../../model/historialclinico-request';
 
 @Component({
   selector: 'app-crear-historial',
@@ -10,25 +14,77 @@ import { CommonModule } from '@angular/common';
   styleUrl: './crear-historial.component.css'
 })
 export class CrearHistorialComponent {
-  historialForm: FormGroup;
+  historialForm!: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private pacienteService: PacienteService,
+    private historialclinicoService: HistorialclinicoService
+  ) {}
+
+  ngOnInit(): void{
+    this.initializeForm();
+  }
+
+  initializeForm(): void {
     this.historialForm = this.fb.group({
-      dni: ['', Validators.required],
+      dni: ['', Validators.required, Validators.pattern(/^\d+$/)],
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
       fechaNacimiento: ['', Validators.required],
       correo: ['', [Validators.required, Validators.email]],
-      celular: ['', Validators.required],
+      celular: ['', Validators.required, Validators.pattern(/^\d+$/)],
       domicilio: ['', Validators.required]
     });
+
   }
 
   onSubmit() {
-    if (this.historialForm.valid) {
-      console.log(this.historialForm.value);
-      // proxima implementacion
+    if (this.historialForm.invalid){
+      alert('Por favor, complete todos los campos debidamente.');
+      return;
     }
+ 
+    const paciente: IPaciente = {
+      dni: this.historialForm.value.dni,
+      nombres: this.historialForm.value.nombres,
+      apellidos: this.historialForm.value.apellidos,
+      fechaDeNacimiento: this.historialForm.value.fechaNacimiento,
+      correoElectronico: this.historialForm.value.correo,
+      numeroCelular: this.historialForm.value.celular,
+      domicilio: this.historialForm.value.domicilio,
+    };
+
+    const historialClinico: IHistorialclinicoRequest = {
+      idHistorialClinico: null,
+      dni: this.historialForm.value.dni,
+      fecha: null,
+      observaciones: null,
+      diagnosticos: null
+    };
+
+    this.pacienteService.insertPaciente(paciente).subscribe({
+      next: (response) => {
+        console.log('Paciente creado exitosamente',response);
+        
+        //creamos el historial clinico
+        this.historialclinicoService.insertHistorialClinico(historialClinico).subscribe({
+          next: (response) => {
+            alert('Historial Clinico creado exitosamente')
+            console.log('Historial Clinico: ',response)
+            this.historialForm.reset();
+          },
+          error: (err) => {
+            alert('Error al intentar crear un historial clinico');
+            console.error(err);
+          }
+        });
+      },
+      error: (err) => {
+        alert('Error al crear el paciente');
+        console.error(err);
+      }
+    });
   }
 
   ngAfterViewInit() {

@@ -1,7 +1,7 @@
 export interface IHistorialclinicoRequest {
-    idHistorialClinico:string; 
+    idHistorialClinico: string | null;
     dni:number; 
-    fecha:Date; 
-    observaciones:string; 
-    diagnosticos:string;         
+    fecha:Date | null; 
+    observaciones:string | null; 
+    diagnosticos:string | null;         
 }
