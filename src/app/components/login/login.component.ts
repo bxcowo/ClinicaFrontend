@@ -18,7 +18,7 @@ export class LoginComponent {
   constructor(private usuarioService:UsuarioService){}
   
   ngOnInit():void{
-    this.getUser();
+    //this.getUser();
   }
   getUser():void{
     this.usuarioService.getUser().subscribe((result:any)=>{
