@@ -1,9 +1,9 @@
 export interface ICitaRequest {
-    idCita: String | null;          
+    idCita: string | null;          
     dni:number;     
     idHorarios:number;      
     fecha:Date;             
-    horaInicio:String;       
-    horaFin:String;           
-    estado:String;  
+    horaInicio:string;       
+    horaFin:string;           
+    estado:string;  
 }

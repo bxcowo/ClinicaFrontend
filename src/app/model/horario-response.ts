@@ -1,10 +1,10 @@
 export interface IHorarioResponse {
     idHorarios:number;   
-    nombresMedico:String;
-    apellidosMedico:String; 
-    nombreEspecialidad:String;
+    nombresMedico:string;
+    apellidosMedico:string; 
+    nombreEspecialidad:string;
     fecha:Date;             
-    horaInicio:String;     
-    horaFin:String;               
-    estado:String;        
+    horaInicio:string;     
+    horaFin:string;               
+    estado:string;        
 }

@@ -1,13 +1,13 @@
 export interface ICitaResponse {
-    idCita:String;
+    idCita:string;
     dniPaciente:number;
-    nombresPaciente:String;
-    apellidosPaciente:String;
-    nombresMedico:String;
-    apellidosMedico:String; 
-    nombreConsultorio:String;
+    nombresPaciente:string;
+    apellidosPaciente:string;
+    nombresMedico:string;
+    apellidosMedico:string; 
+    nombreConsultorio:string;
     fecha:Date;             
-    horaInicio:String;        
-    horaFin:String;           
-    estado:String;          
+    horaInicio:string;        
+    horaFin:string;           
+    estado:string;          
 }

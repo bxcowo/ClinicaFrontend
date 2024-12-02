@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IComprobanteDePago } from '../model/comprobante-de-pago';
 import { BASE_URL } from '../utils/constants';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { IOrdenDePagoRequest } from '../model/orden-de-pago-request';
 import { IOrdenDePagoResponse } from '../model/orden-de-pago-response';
 
@@ -10,7 +10,16 @@ import { IOrdenDePagoResponse } from '../model/orden-de-pago-response';
   providedIn: 'root',
 })
 export class OrdeDePagoService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
+
+  insertOrdenDePago(ordendepago: IOrdenDePagoRequest): Observable<IOrdenDePagoResponse>{
+    return this.http.post<IOrdenDePagoResponse>(`${BASE_URL}/ordendepago`, ordendepago).pipe(
+        catchError((err) => {
+          console.error('Error al intentar insertar orden de pago:', err);
+          return throwError(() => new Error('Error al intentar insertar orden de pago'));
+        })
+      );
+  }
 
   getOrdenesDePago(): Observable<IOrdenDePagoResponse[]> {
     return this.http.get<IOrdenDePagoResponse[]>(`${BASE_URL}/ordendepago`);

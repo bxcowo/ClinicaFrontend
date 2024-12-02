@@ -1,4 +1,3 @@
-<body>
     <div class="sidebar close">
       <div class="logo-details">
         <img src="logoClinica.png" alt="Logo" class="logo-image">
@@ -70,99 +69,178 @@
         <span class="text">Clínicas Psicologías del Perú</span>
       </div>
       
+     
       <div class="container mt-5">
-        <h2 class="text-center mb-2">Agendar nueva cita</h2>
-        <p class="text-center text-muted">Ingrese los datos de la cita del paciente</p>
-        
-        <div class="row mt-4">
-          <div class="col-md-6">
-            <h5 class="mb-3">Datos del paciente</h5>
-            <form>
-              <div class="mb-3">
-                <label for="dni" class="form-label">DNI</label>
-                <div class="input-group">
-                  <input type="text" id="dni" class="form-control" placeholder="Ingresar el DNI" required>
-                  <button type="button" class="btn btn-primary">Buscar</button>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="nombres" class="form-label">Nombres</label>
-                <input type="text" id="nombres" class="form-control" placeholder="Nombres del paciente" disabled>
-              </div>
-              <div class="mb-3">
-                <label for="apellidos" class="form-label">Apellidos</label>
-                <input type="text" id="apellidos" class="form-control" placeholder="Apellidos del paciente" disabled>
-              </div>
-              <div class="mb-3">
-                <label for="correo" class="form-label">Correo</label>
-                <input type="email" id="correo" class="form-control" placeholder="Correo del paciente" disabled>
-              </div>
-              <div class="mb-3">
-                <label for="celular" class="form-label">Celular</label>
-                <input type="tel" id="celular" class="form-control" placeholder="Celular del paciente" disabled>
-              </div>
-            </form>
-          </div>
+        <h2 class="mb-4 text-center"> Agendar citas </h2>
       
-
-          <div class="col-md-6">
-            <h5 class="mb-3">Datos de la cita</h5>
-            <form>
-              <div class="mb-3">
-                <label for="especialidad" class="form-label">Especialidad</label>
-                <select id="especialidad" class="form-select" required>
-                  <option selected>Seleccionar la especialidad</option>
-                  <option></option>
-                  <option></option>
-                  <option></option>
-                </select>
+        <!-- Sección 1: Buscar y Autollenar Datos del Paciente -->
+        <div class="search-paciente-section">
+          <form [formGroup]="buscarPacienteForm" (ngSubmit)="buscarPaciente()">
+            <div class="mb-3">
+              <label for="dni" class="form-label">DNI del Paciente</label>
+              <input
+                type="text"
+                id="dni"
+                class="form-control"
+                formControlName="dni"
+                placeholder="Ingresar DNI"
+              />
+              <!-- Mensaje de error para DNI inválido -->
+              <div
+                *ngIf="
+                  buscarPacienteForm.get('dni')?.invalid &&
+                  buscarPacienteForm.get('dni')?.touched
+                "
+                class="text-danger"
+              >
+                DNI es requerido y debe tener 8 dígitos.
               </div>
-              <div class="mb-3">
-                <label for="fechaCita" class="form-label">Fecha de la cita</label>
-                <input type="date" id="fechaCita" class="form-control" required>
-              </div>
-              <div class="mb-3">
-                <label for="medico" class="form-label">Médico</label>
-                <select id="medico" class="form-select" required>
-                  <option selected>Seleccionar el médico</option>
-                  <option></option>
-                  <option></option>
-                  <option></option>
-                </select>
-              </div>
-              <div class="mb-3">
-                <label for="horario" class="form-label">Horario</label>
-                <div class="d-flex gap-3">
-                  <select id="horario" class="form-select" required>
-                    <option selected>Seleccionar tu horario</option>
-                    <option></option>
-                    <option></option>
-                    <option></option>
-                  </select>
-                </div>
-              </div>
-              <div class="mb-3">
-                <label for="sala" class="form-label">Sala</label>
-                <select id="sala" class="form-select" required>
-                  <option selected>Seleccionar la sala de atención</option>
-                  <option></option>
-                  <option></option>
-                  <option></option>
-                </select>
-              </div>
-            </form>
-          </div>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              [disabled]="buscarPacienteForm.invalid || isLoadingPaciente"
+            >
+              Buscar Paciente
+            </button>
+            <!-- Indicador de carga mientras se busca el paciente -->
+            <div *ngIf="isLoadingPaciente" class="spinner-border text-primary ms-3" role="status">
+              <span class="visually-hidden">Cargando...</span>
+            </div>
+          </form>
         </div>
       
-        <div class="row mt-4">
-          <div class="col-md-12 text-center">
-            <button type="submit" class="btn btn-primary btn-lg agendar-cita-btn">
-              <i class="bi bi-calendar-check"></i> Agendar cita
-            </button>
-          </div>
+        <div *ngIf="paciente" class="paciente-info-section mt-4">
+          <h4>Datos del Paciente</h4>
+          <ul class="list-group">
+            <li class="list-group-item"><strong>Nombre:</strong> {{ paciente.nombres }} {{ paciente.apellidos }}</li>
+            <li class="list-group-item"><strong>Correo:</strong> {{ paciente.correoElectronico }}</li>
+            <li class="list-group-item"><strong>Celular:</strong> {{ paciente.numeroCelular }}</li>
+          </ul>
+        </div>
+      
+        <div *ngIf="paciente" class="agendar-cita-form-section mt-5">
+          <h4>Agendar Nueva Cita</h4>
+          <form [formGroup]="agendarCitaForm" (ngSubmit)="agendarCita()">
+            
+            <!-- Campo Fecha de la Cita -->
+            <div class="mb-3">
+              <label for="fecha" class="form-label">Fecha de la Cita</label>
+              <input
+                type="date"
+                id="fecha"
+                class="form-control"
+                formControlName="fecha"
+                (change)="buscarHorarios()"
+              />
+        
+              <!-- Mensaje de error para fecha inválida -->
+              <div
+                *ngIf="
+                  agendarCitaForm.get('fecha')?.invalid &&
+                  agendarCitaForm.get('fecha')?.touched
+                "
+                class="text-danger"
+              >
+                Fecha es requerida y no puede ser anterior a hoy.
+              </div>
+            </div>
+        
+            <!-- Campo Especialidad -->
+            <div class="mb-3">
+              <label for="especialidad" class="form-label">Especialidad</label>
+              <select
+                id="especialidad"
+                class="form-select"
+                formControlName="especialidad"
+                (change)="buscarHorarios()"
+              >
+                <option value="">Seleccionar Especialidad</option>
+                <option *ngFor="let especialidad of especialidades" [value]="especialidad">
+                  {{ especialidad }}
+                </option>
+              </select>
+        
+              <!-- Mensaje de error para especialidad inválida -->
+              <div
+                *ngIf="
+                  agendarCitaForm.get('especialidad')?.invalid &&
+                  agendarCitaForm.get('especialidad')?.touched
+                "
+                class="text-danger"
+              >
+                Especialidad es requerida.
+              </div>
+            </div>
+        
+            <div *ngIf="isLoadingHorarios" class="spinner-border text-primary mb-3" role="status">
+              <span class="visually-hidden">Cargando horarios...</span>
+            </div>
+        
+            <!-- Tabla de Horarios Disponibles -->
+            <div *ngIf="horariosArray.length > 0" class="table-section mt-4">
+              <h5 class="mb-3">Horarios Disponibles</h5>
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Médico</th>
+                    <th>Especialidad</th>
+                    <th>Fecha</th>
+                    <th>Hora Inicio</th>
+                    <th>Hora Fin</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let horario of horariosArray; let i = index">
+                    <td>{{ horario.idHorarios }}</td>
+                    <td>{{ horario.nombresMedico }} {{ horario.apellidosMedico }}</td>
+                    <td>{{ horario.nombreEspecialidad }}</td>
+                    <td>{{ horario.fecha }}</td>
+                    <td>{{ horario.horaInicio }}</td>
+                    <td>{{ horario.horaFin }}</td>
+                    <td>
+                      <span
+                        class="badge"
+                        [ngClass]="{
+                          'bg-success': horario.estado.toLowerCase() === 'disponible',
+                          'bg-danger': horario.estado.toLowerCase() !== 'disponible'
+                        }"
+                      >
+                        {{ horario.estado }}
+                      </span>
+                    </td>
+                    <td>
+                      <button
+                        class="btn btn-success btn-sm"
+                        (click)="seleccionarHorario(horario)"
+                        [disabled]="horario.estado.toLowerCase() !== 'disponible' || (horarioSeleccionado && horarioSeleccionado.idHorarios === horario.idHorarios)"
+                      >
+                        {{ horarioSeleccionado?.idHorarios === horario.idHorarios ? 'Seleccionado' : 'Seleccionar' }}
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+        
+            <!-- Botón para Agendar Cita -->
+            <div class="text-center mt-4">
+              <button
+                type="submit"
+                class="btn btn-primary btn-lg"
+                [disabled]="agendarCitaForm.invalid || !horarioSeleccionado || isLoadingCita || isLoadingPago"
+              >
+                <i class="bi bi-calendar-check"></i> Agendar Cita
+              </button>
+              <!-- Indicador de carga mientras se agenda la cita -->
+              <div *ngIf="isLoadingCita || isLoadingPago" class="spinner-border text-primary ms-3" role="status">
+                <span class="visually-hidden">Procesando...</span>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
-      
-
     </section>
-</body>

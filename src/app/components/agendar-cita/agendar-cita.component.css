@@ -306,69 +306,219 @@
   }
 }
 
+/* General */
 .container {
-  max-width: 1500px; 
+  max-width: 1000px;
   margin: auto;
-  background: #f9f9f9;
+  background: #ffffff;
   padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+h2.text-center {
+  font-size: 26px;
+  font-weight: bold;
+  color: #032f56;
+}
+
+/* Campos de Entrada y Select */
+input.form-control,
+select.form-select {
+  height: 45px;
+  font-size: 16px;
+  text-indent: 10px;
+  border-radius: 8px;
+  border: 1px solid #dee2e6;
+}
+
+input.form-control:focus,
+select.form-select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Botones */
+button.btn {
+  font-size: 16px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  color: #fff;
+  transition: background-color 0.3s ease;
+}
+
+button.btn:hover {
+  background-color: #0056b3;
+}
+
+button.btn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+button i {
+  margin-right: 5px;
+  font-size: 18px;
+}
+
+.agendar-cita-btn {
+  width: 100%;
+  font-size: 18px;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #007bff;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.agendar-cita-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Datos del Paciente */
+.datos-paciente-section {
+  margin-top: 30px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-left: 5px solid #007bff; /* Resaltamos con una barra de color */
+}
+
+.datos-paciente-section h4 {
+  color: #032f56;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.datos-paciente-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.datos-paciente-section li {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.datos-paciente-section li strong {
+  color: #032f56;
+  font-weight: 600;
+}
+
+/* Agendar Cita */
+.agendar-cita-form-section {
+  margin-top: 30px;
+  padding: 20px;
+  background: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.row {
-  gap: 30px;
+.agendar-cita-form-section h4 {
+  color: #032f56;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 
-input.form-control,
-select.form-select {
-  height: 50px;
-  font-size: 16px;
-  text-indent: 10px;
+/* Tabla de Horarios */
+.table-section {
+  margin-top: 30px;
+  padding: 20px;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.input-group .btn {
-  font-size: 16px;
-  width: 120px;
-  height: 50px;
+.table-section h5 {
+  color: #032f56;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.table-section table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-section th,
+.table-section td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #dee2e6;
+}
+
+.table-section th {
+  background-color: #f1f1f1;
+  font-weight: 600;
+  color: #032f56;
+}
+
+.table-section tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* Paginación */
+.pagination {
+  margin-top: 20px;
   display: flex;
-  align-items: center;
   justify-content: center;
 }
 
-.agendar-cita-btn {
-  width: 70%;
-  margin: 0 auto;
-  font-size: 18px;
-  padding: 15px;
-  border-radius: 8px; 
+.pagination .page-link {
+  color: #032f56;
+  padding: 10px 15px;
+  border: 1px solid #dee2e6;
+  margin: 0 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.pagination .page-item.active .page-link {
   background-color: #007bff;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  color: white;
 }
 
-button.btn-lg:hover {
-  background-color: #0056b3;
+.pagination .page-item.disabled .page-link {
+  background-color: #e9ecef;
+  color: #6c757d;
+  pointer-events: none;
 }
 
-button i {
-  margin-right: 8px;
-  font-size: 20px;
-}
+/* Responsividad */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
 
-.form-check-label {
-  font-size: 16px;
-}
+  h2.text-center {
+    font-size: 22px;
+  }
 
-.form-check-input {
-  margin-top: 6px;
-}
+  .agendar-cita-btn {
+    font-size: 16px;
+    padding: 10px;
+  }
 
-@media (min-width: 992px) {
-  .col-md-6 {
-    flex: 0 0 calc(50% - 15px);
-    max-width: calc(50% - 15px);
+  .datos-paciente-section h4 {
+    font-size: 18px;
+  }
+
+  .datos-paciente-section li {
+    font-size: 14px;
+  }
+
+  .table-section table {
+    font-size: 14px;
   }
 }
 

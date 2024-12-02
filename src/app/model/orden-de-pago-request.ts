@@ -1,9 +1,9 @@
 export interface IOrdenDePagoRequest {
-    idOrdenDePago: string;
+    idOrdenDePago: string | null;
     idCita: string;
-    idComprobanteDePago: number;
-    idMetodoDePago: number;
+    idComprobanteDePago: number | null;
+    idMetodoDePago: number | null;
     fecha: Date;
-    monto: number;
-    estado: string;
+    monto: number | null;
+    estado: string | null;
 }
