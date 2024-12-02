@@ -205,8 +205,8 @@
                       <span
                         class="badge"
                         [ngClass]="{
-                          'bg-success': horario.estado.toLowerCase() === 'disponible',
-                          'bg-danger': horario.estado.toLowerCase() !== 'disponible'
+                          'bg-success': horario.estado.toLowerCase() === 'libre',
+                          'bg-danger': horario.estado.toLowerCase() !== 'libre'
                         }"
                       >
                         {{ horario.estado }}
@@ -216,7 +216,7 @@
                       <button
                         class="btn btn-success btn-sm"
                         (click)="seleccionarHorario(horario)"
-                        [disabled]="horario.estado.toLowerCase() !== 'disponible' || (horarioSeleccionado && horarioSeleccionado.idHorarios === horario.idHorarios)"
+                        [disabled]="horario.estado.toLowerCase() !== 'libre' || (horarioSeleccionado && horarioSeleccionado.idHorarios === horario.idHorarios)"
                       >
                         {{ horarioSeleccionado?.idHorarios === horario.idHorarios ? 'Seleccionado' : 'Seleccionar' }}
                       </button>

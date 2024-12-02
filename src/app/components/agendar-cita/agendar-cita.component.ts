@@ -11,6 +11,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { IPaciente } from '../../model/paciente';
 import { IHorarioResponse } from '../../model/horario-response';
 import { IOrdenDePagoRequest } from '../../model/orden-de-pago-request';
+import { formatDate } from '@angular/common';
 
 
 @Component({
@@ -35,7 +36,7 @@ export class AgendarCitaComponent {
   isLoadingHorarios: boolean = false;
   isLoadingCita: boolean = false;
   isLoadingPago: boolean = false;
-  especialidades: string[] = ["PCli", "PCog", "PEdu", "PSoc", "PPer"];
+  especialidades: string[] = ["Psicologia Clinica", "Psicologia Cognitiva", "Psicologia Educativa", "Psicologia Social", "Psicologia de la Personalidad"];
 
 
   constructor(
@@ -87,7 +88,7 @@ export class AgendarCitaComponent {
   buscarHorarios(): void {
     if (this.paciente && this.agendarCitaForm.get('fecha')?.valid && this.agendarCitaForm.get('especialidad')?.valid) {
       this.isLoadingHorarios = true;
-      const fecha = this.agendarCitaForm.value.fecha;
+      const fecha = formatDate(this.agendarCitaForm.value.fecha, 'yyyy-MM-dd', 'en-US');
       const especialidad = this.agendarCitaForm.value.especialidad;
       this.horarioService.getHorariosByFechaAndEspecialidad(fecha, especialidad).subscribe(
         (data: IHorarioResponse[]) => {
@@ -104,8 +105,16 @@ export class AgendarCitaComponent {
   }
 
   seleccionarHorario(horario: IHorarioResponse): void {
-    this.horarioSeleccionado = horario;
-   }
+    if (this.horarioSeleccionado && this.horarioSeleccionado.idHorarios === horario.idHorarios) {
+      // Si el horario ya está seleccionado, lo deselecciona
+      this.horarioSeleccionado = null;
+      console.log('Horario deseleccionado:', horario);
+    } else {
+      // Selecciona el nuevo horario
+      this.horarioSeleccionado = horario;
+      console.log('Horario seleccionado:', horario);
+    }
+  }
 
   agendarCita(): void {
     if (this.paciente && this.horarioSeleccionado && this.agendarCitaForm.valid) {
