@@ -10,6 +10,15 @@ import { BASE_URL } from '../utils/constants';
 export class PacienteService {
   constructor(private http: HttpClient) { }
 
+  getPacienteByDni(dni:number): Observable<IPaciente> {
+    return this.http.get<IPaciente>(`${BASE_URL}/paciente/${dni}`).pipe(
+      catchError(err => {
+        console.error('Error buscando paciente por dni:', err);
+        return throwError(() => new Error('Error buscando paciente por dni'));
+      })
+    );
+  }
+
   getPacientes(): Observable<IPaciente[]> {
     return this.http.get<IPaciente[]>(`${BASE_URL}/paciente`).pipe(
       catchError(err => {
