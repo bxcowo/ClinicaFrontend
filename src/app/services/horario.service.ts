@@ -32,5 +32,14 @@ export class HorarioService {
       })
     );
   }
-  
+
+  getHorarios(): Observable <IHorarioResponse[]> {
+    return this.http.get<IHorarioResponse[]>(`${BASE_URL}/horarios`).pipe(
+      catchError(err => {
+        console.error('Error obteniendo todos los horarios', err);
+        return throwError(() => new Error('Error obteniendo todos los horarios'));
+      })
+    )
+  }
+
 }

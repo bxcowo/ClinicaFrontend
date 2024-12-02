@@ -1,5 +1,5 @@
 export interface IUsuarioResponse {
-    idUsuario:number;
-    dni:number;
-    idMedico:string;
+    idUsuario: number;
+    dni: number | null;
+    idMedico: string | "";
 }

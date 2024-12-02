@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, Observable, throwError } from 'rxjs';
 import { IUsuarioResponse } from '../model/usuario-response';
 import { BASE_URL } from '../utils/constants';
 
@@ -10,10 +10,17 @@ import { BASE_URL } from '../utils/constants';
 export class UsuarioService {
   constructor(private http: HttpClient) { }
 
-  getUser(): Observable<IUsuarioResponse[]>{
-    return this.http.get<IUsuarioResponse[]>(`${BASE_URL}/usuario`);
-    //return this.http.get<IUsuarioResponse[]>(`${BASE_URL}/find/by/nombre-and-password`);
-  }
+  LoginUser(nombreUsuario:string, passwordUsuario:string): Observable <IUsuarioResponse | null > {
+    const params = new HttpParams()
+    .set('nombreUsuario',nombreUsuario)
+    .set('passwordUsuario', passwordUsuario);
 
+    return this.http.get<IUsuarioResponse>(`${BASE_URL}/usuario/find/by/nombre-and-password`,{ params}).pipe(
+      catchError(err => {
+        console.error('Error al intentar iniciar sesion', err);
+        return throwError(() => new Error('Error al intentar iniciar sesion'));
+      })
+    )
+  }
 
 }
