@@ -1,120 +1,196 @@
 <div class="sidebar close">
-    <div class="logo-details">
-      <img src="logoClinica.png" alt="Logo" class="logo-image">
-      <span class="logo_name">PAP²</span>
-    </div>
-    <ul class="nav-links">
-      <li>
-        <a href="#">
-          <i class='bx bx-file-find'></i>
-          <span class="link_name">Historial clínico</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bxs-file-plus'></i>
-          <span class="link_name">Creación de historial</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-plus'></i>
-          <span class="link_name">Agendación de citas</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bx-user'></i>
-          <span class="link_name">Datos personales</span>
-        </a>
-      </li>
-      <li>
-        <a href="#">
-          <i class='bx bxs-bank'></i>
-          <span class="link_name">Términos y condiciones</span>
-        </a>
-      </li>
-      <li>
-        <div class="log-out-section">
-          <i class='bx bx-log-out'></i>
-          <div class="log-out-mes">
-            <div class="log-out-label">Cerrar sesión</div>
-          </div>
-        </div>
-      </li>
-    </ul>
+  <div class="logo-details">
+    <img src="logoClinica.png" alt="Logo" class="logo-image" />
+    <span class="logo_name">PAP²</span>
   </div>
-  
-  <section class="home-section">
-    <div class="home-content">
-      <i class='bx bx-menu'></i>
-      <span class="text">Clínicas Psicologías del Perú</span>
-    </div>
-    <div class="container">
-        <div class="row">
-          <h1 class="text-center">Pagar Orden de Pago</h1>
-          <div class="card">
-            <div class="card-body">
-              <form class="form-group g-4 needs-validation d-flex align-items-center" [formGroup]="buscarOrdenDePagoForm">
-                <label for="inputIdOrdenDePago" class="form-label me-3">Orden de Pago</label>
-                <input
-                  type="text"
-                  class="form-control me-3"
-                  id="inputIdOrdenDePago"
-                  placeholder="Ingrese Orden de Pago"
-                  formControlName="idOrdenDePago"
-                />
-                <button class="btn btn-primary" (click)="getOrdenDePagoById()">
-                  Buscar
-                </button>
-              </form>
-            </div>
-          </div>
+  <ul class="nav-links">
+    <li>
+      <a href="#">
+        <i class="bx bx-file-find"></i>
+        <span class="link_name">Historial clínico</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class="bx bxs-file-plus"></i>
+        <span class="link_name">Creación de historial</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class="bx bx-plus"></i>
+        <span class="link_name">Agendación de citas</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class="bx bx-user"></i>
+        <span class="link_name">Datos personales</span>
+      </a>
+    </li>
+    <li>
+      <a href="#">
+        <i class="bx bxs-bank"></i>
+        <span class="link_name">Términos y condiciones</span>
+      </a>
+    </li>
+    <li>
+      <div class="log-out-section">
+        <i class="bx bx-log-out"></i>
+        <div class="log-out-mes">
+          <div class="log-out-label">Cerrar sesión</div>
         </div>
-      
-        <div class="row"> 
-          <div class="card">
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th scope="col">Código de orden de pago</th>
-                      <th scope="col">Paciente</th>
-                      <th scope="col">Fecha</th>
-                      <th scope="col">Tipo comprobante de pago</th>
-                      <th scope="col">Importe</th>
-                      <th scope="col">Método de Pago</th>
-                      <th scope="col">Estado</th>
-                      <th scope="col">Acciones</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr *ngFor="let ordenDePago of ordenDePagoArray 
-                                  | paginate: { itemsPerPage: 10, currentPage: page }; let i = index">
-                      <td>{{ ordenDePago.idOrdenDePago }}</td>
-                      <td>{{ ordenDePago.nombresPaciente + " " + ordenDePago.apellidosPaciente }}</td>
-                      <td>{{ ordenDePago.fecha }}</td>
-                      <td>{{ ordenDePago.comprobanteDePago }}</td>
-                      <td>{{ ordenDePago.monto }}</td>
-                      <td>{{ ordenDePago.metodoDePago }}</td>
-                      <td>{{ ordenDePago.estado }}</td>
-                      <td>
-                        <button class="btn btn-primary">
-                          Pagar
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <pagination-controls
-                  (pageChange)="page = $event"
-                  previousLabel="Anterior"
-                  nextLabel="Siguiente">
-                </pagination-controls>
-              </div>
-            </div>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<section class="home-section">
+  <div class="home-content">
+    <i class="bx bx-menu"></i>
+    <span class="text">Clínicas Psicologías del Perú</span>
+  </div>
+  <div class="container">
+    <div class="row">
+      <h1 class="text-center">Pagar Orden de Pago</h1>
+      <div class="card">
+        <div class="card-body d-flex justify-content-between">
+          <div
+            class="form-group g-4 needs-validation d-flex align-items-center"
+          >
+            <label for="inputIdOrdenDePago" class="form-label me-3"
+              >Orden de Pago</label
+            >
+            <input
+              type="text"
+              class="form-control me-3"
+              id="inputIdOrdenDePago"
+              placeholder="Ingrese código de orden"
+              [formControl]="idOrdenDePago"
+              (keyup.enter)="getOrdenDePagoById()"
+            />
+            <button class="btn btn-primary" (click)="getOrdenDePagoById()">
+              Buscar
+            </button>
+          </div>
+          <button class="btn" (click)="refrescar()">
+            <i class='bx bx-reset' style="font-size: 25px;"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div
+        *ngIf="mostrarAlerta"
+        class="alert alert-warning alert-dismissible fade show"
+        role="alert"
+      >
+        <strong>¡Atención!</strong> Por favor, selecciona un tipo de comprobante
+        antes de proceder.
+        <button
+          type="button"
+          class="btn-close"
+          (click)="cerrarAlerta()"
+          aria-label="Close"
+        ></button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive" style="width: 100%">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">Código</th>
+                  <th scope="col">Paciente</th>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Tipo comprobante</th>
+                  <th scope="col">Importe</th>
+                  <th scope="col">Método de Pago</th>
+                  <th scope="col">Estado</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="
+                    let ordenDePago of ordenDePagoArray
+                      | paginate : { itemsPerPage: 10, currentPage: page };
+                    let i = index
+                  "
+                >
+                  <td>{{ ordenDePago.idOrdenDePago }}</td>
+                  <td>
+                    {{
+                      ordenDePago.nombresPaciente +
+                        " " +
+                        ordenDePago.apellidosPaciente
+                    }}
+                  </td>
+                  <td>{{ ordenDePago.fecha }}</td>
+                  <td>
+                    <ng-container
+                      *ngIf="ordenDePago.estado === 'pagado'; else selected"
+                    >
+                      {{ ordenDePago.comprobanteDePago }}
+                    </ng-container>
+                    <ng-template #selected>
+                      <select
+                        class="form-select p-1"
+                        [formControl]="formControls[i]"
+                      >
+                        <option value="Boleta">Boleta</option>
+                        <option value="Factura">Factura</option>
+                      </select>
+                    </ng-template>
+                  </td>
+                  <td>S/. {{ ordenDePago.monto }}</td>
+                  <td>{{ ordenDePago.metodoDePago }}</td>
+                  <td>
+                    <div
+                      class="p-1 d-flex justify-content-center rounded-2"
+                      [ngClass]="{
+                        'text-bg-warning': ordenDePago.estado === 'noPagado',
+                        'text-bg-success': ordenDePago.estado === 'pagado'
+                      }"
+                    >
+                      {{
+                        ordenDePago.estado === "pagado" ? "Pagado" : "No pagado"
+                      }}
+                    </div>
+                  </td>
+                  <td>
+                    <button
+                      class="btn btn-primary"
+                      [disabled]="ordenDePago.estado === 'pagado'"
+                      (click)="actualizarOrdenSeleccionada(i, $event)"
+                      [attr.data-bs-toggle]="
+                        isTipoComprobanteValido(i) ? 'modal' : null
+                      "
+                      [attr.data-bs-target]="
+                        isTipoComprobanteValido(i) ? '#exampleModal' : null
+                      "
+                    >
+                      Pagar
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <pagination-controls
+              (pageChange)="page = $event"
+              previousLabel="Anterior"
+              nextLabel="Siguiente"
+            >
+            </pagination-controls>
           </div>
         </div>
       </div>
-      
+    </div>
+  </div>
+</section>
+
+<modal-pagar [ordenSeleccionada]="ordenSeleccionada"></modal-pagar>

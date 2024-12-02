@@ -1,0 +1,298 @@
+<div
+  *ngIf="showSuccessMessage"
+  class="alert alert-success fixed-top m-3"
+  role="alert"
+>
+  ¡El pago se realizó correctamente!
+</div>
+
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Pagar orden</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <!-- Nav Tabs -->
+        <ul class="nav nav-tabs" id="tabMenu" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link active"
+              id="option1-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#option1"
+              type="button"
+              role="tab"
+              aria-controls="option1"
+              aria-selected="true"
+            >
+              Tarjeta crédito/débito
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="option2-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#option2"
+              type="button"
+              role="tab"
+              aria-controls="option2"
+              aria-selected="false"
+            >
+              Billetera digital
+            </button>
+          </li>
+          <li class="nav-item" role="presentation">
+            <button
+              class="nav-link"
+              id="option3-tab"
+              data-bs-toggle="tab"
+              data-bs-target="#option3"
+              type="button"
+              role="tab"
+              aria-controls="option3"
+              aria-selected="false"
+            >
+              Efectivo
+            </button>
+          </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content mt-3" id="tabContent">
+          <!-- Opción 1 -->
+          <div
+            class="tab-pane fade show active"
+            id="option1"
+            role="tabpanel"
+            aria-labelledby="option1-tab"
+          >
+            <form>
+              <!-- Radio Buttons -->
+              <div class="mb-3">
+                <label class="form-label">Tipo de tarjeta</label>
+                <div class="d-flex justify-content-center border gap-5">
+                  <div class="form-check rounded p-2">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="cardType"
+                      id="visa"
+                      value="Visa"
+                      [(ngModel)]="selectedCardType"
+                    />
+                    <label class="form-check-label" for="visa">Visa</label>
+                  </div>
+                  <div class="form-check rounded p-2">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="cardType"
+                      id="mastercard"
+                      value="Mastercard"
+                      [(ngModel)]="selectedCardType"
+                    />
+                    <label class="form-check-label" for="mastercard">
+                      Mastercard
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Botón para iniciar simulación -->
+              <div class="mb-3 text-center">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  [disabled]="!selectedCardType"
+                  (click)="simulateCardScan()"
+                >
+                  Iniciar lectura de tarjeta
+                </button>
+              </div>
+
+              <!-- Simulación Lector -->
+              <div class="mb-3">
+                <label class="form-label">Estado del lector</label>
+                <div
+                  class="pos-simulator text-center border border-secondary rounded p-3"
+                  style="background-color: #f8f9fa"
+                >
+                  <p class="text-muted mb-2">Simulador de lector</p>
+                  <div
+                    class="fake-card-reader border border-primary rounded d-inline-block p-3"
+                    style="width: 200px; height: 120px; background-color: white"
+                  >
+                    <p
+                      [ngClass]="{
+                        'text-warning': isScanning,
+                        'text-success': !isScanning
+                      }"
+                    >
+                      {{ readerStatus }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Datos de la Tarjeta -->
+              <div class="mb-3">
+                <label class="form-label">Datos de la tarjeta</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [value]="cardData"
+                  placeholder="Los datos aparecerán aquí"
+                  readonly
+                />
+              </div>
+
+              <!-- Monto a pagar -->
+              <div class="mb-3">
+                <label for="monto" class="form-label"
+                  >Monto total a pagar</label
+                >
+                <input
+                  type="number"
+                  id="monto"
+                  class="form-control"
+                  name="monto"
+                  [value]="ordenSeleccionada?.monto"
+                  readonly
+                />
+              </div>
+            </form>
+          </div>
+
+          <!-- Opción 2 -->
+          <div
+            class="tab-pane fade"
+            id="option2"
+            role="tabpanel"
+            aria-labelledby="option2-tab"
+          >
+            <form>
+              <!-- Radio Buttons para billeteras -->
+              <div class="mb-3">
+                <label class="form-label">Seleccionar billetera</label>
+                <div class="d-flex justify-content-center gap-3">
+                  <!-- Yape -->
+                  <div class="form-check border rounded p-2">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="billetera"
+                      id="yape"
+                      value="Yape"
+                      [(ngModel)]="selectedBilletera"
+                    />
+                    <label class="form-check-label" for="yape">
+                      <img src="assets/logo-yape.png" alt="Yape" width="60" />
+                    </label>
+                  </div>
+
+                  <!-- Plin -->
+                  <div class="form-check border rounded p-2">
+                    <input
+                      class="form-check-input"
+                      type="radio"
+                      name="billetera"
+                      id="plin"
+                      value="Plin"
+                      [(ngModel)]="selectedBilletera"
+                    />
+                    <label class="form-check-label" for="plin">
+                      <img src="assets/logo-plin.jpg" alt="Plin" width="60" />
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Monto a pagar -->
+              <div class="mb-3">
+                <label for="monto" class="form-label"
+                  >Monto total a pagar</label
+                >
+                <input
+                  type="number"
+                  id="monto"
+                  class="form-control"
+                  name="monto"
+                  [value]="ordenSeleccionada?.monto"
+                  readonly
+                />
+              </div>
+
+              <!-- Botón Generar QR -->
+              <div class="mb-3 text-center">
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="generarQR()"
+                  [disabled]="!selectedBilletera"
+                >
+                  Generar QR
+                </button>
+              </div>
+
+              <!-- QR Simulado -->
+              <div class="text-center" *ngIf="qrCodeGenerated">
+                <img
+                  [src]="qrImage"
+                  alt="QR Code Simulado"
+                  class="img-fluid"
+                  width="200"
+                />
+                <p class="mt-2 text-muted">
+                  Escanea este código en {{ selectedBilletera }}
+                </p>
+              </div>
+            </form>
+          </div>
+
+          <!-- Opción 3 -->
+          <div
+            class="tab-pane fade"
+            id="option3"
+            role="tabpanel"
+            aria-labelledby="option3-tab"
+          >
+            <!-- Monto a pagar -->
+            <div class="mb-3">
+              <label for="monto" class="form-label">Monto total a pagar</label>
+              <input
+                type="number"
+                id="monto"
+                class="form-control"
+                name="monto"
+                [value]="ordenSeleccionada?.monto"
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancelar
+        </button>
+        <button type="button" class="btn btn-primary" (click)="confirmarPago()">
+          Confirmar pago
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
