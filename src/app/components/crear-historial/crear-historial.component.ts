@@ -5,6 +5,7 @@ import { HistorialclinicoService } from '../../services/historialclinico.service
 import { PacienteService } from '../../services/paciente.service';
 import { IPaciente } from '../../model/paciente';
 import { IHistorialclinicoRequest } from '../../model/historialclinico-request';
+import { Route, Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-crear-historial',
@@ -19,11 +20,16 @@ export class CrearHistorialComponent {
   constructor(
     private fb: FormBuilder,
     private pacienteService: PacienteService,
-    private historialclinicoService: HistorialclinicoService
+    private historialclinicoService: HistorialclinicoService,
+    private router: Router
   ) {}
 
   ngOnInit(): void{
     this.initializeForm();
+  }
+
+  onNavigate(route: string) {
+    this.router.navigate([route]);
   }
 
   initializeForm(): void {
