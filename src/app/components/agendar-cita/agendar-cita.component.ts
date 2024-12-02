@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { IPaciente } from '../../model/paciente';
 import { IHorarioResponse } from '../../model/horario-response';
-// import { ToastrModule, ToastrService } from 'ngx-toastr';  
 import { IOrdenDePagoRequest } from '../../model/orden-de-pago-request';
 
 
@@ -44,7 +43,6 @@ export class AgendarCitaComponent {
     private horarioService: HorarioService,
     private pacienteService: PacienteService,
     private ordenDePagoService: OrdeDePagoService,
-//    private toastr: ToastrService
     ) {
 
     this.buscarPacienteForm = new FormGroup({
@@ -64,12 +62,10 @@ export class AgendarCitaComponent {
       this.pacienteService.getPacienteByDni(dni).subscribe(
         (data: IPaciente) => {
           this.paciente = data;
-//          this.toastr.success('Paciente encontrado exitosamente.', 'Éxito');
           this.isLoadingPaciente = false;
         },
         (error) => {
           console.error('Error al buscar paciente:', error);
-//          this.toastr.error('No se encontró un paciente con ese DNI.', 'Error');
           this.paciente = {} as IPaciente;
           this.isLoadingPaciente = false;
         }
@@ -101,7 +97,6 @@ export class AgendarCitaComponent {
         (error) =>{
           console.error('Error al obtener horarios disponibles:', error);
           this.horariosArray = [];
-//          this.toastr.error('Error al obtener horarios disponibles.', 'Error');
           this.isLoadingHorarios = false;
         }
       );
@@ -110,8 +105,7 @@ export class AgendarCitaComponent {
 
   seleccionarHorario(horario: IHorarioResponse): void {
     this.horarioSeleccionado = horario;
-//    this.toastr.info(`Horario seleccionado: ${this.horarioSeleccionado.horaInicio} - ${this.horarioSeleccionado.horaFin} || ${this.horarioSeleccionado.nombresMedico} ${this.horarioSeleccionado.apellidosMedico}`, 'Horario Seleccionado');
-  }
+   }
 
   agendarCita(): void {
     if (this.paciente && this.horarioSeleccionado && this.agendarCitaForm.valid) {
@@ -129,9 +123,8 @@ export class AgendarCitaComponent {
       this.citaService.insertCita(nuevaCita).subscribe(
         (citaResponse: ICitaResponse) => {
           console.log('Cita creada exitosamente:', citaResponse);
-//          this.toastr.success('Cita agendada exitosamente.', 'Éxito');
 
-          this.crearOrdenPago(citaResponse.idCita, this.agendarCitaForm.value.fecha);
+          this.crearOrdenPago(citaResponse.idCita, new Date(this.agendarCitaForm.value.fecha));
 
           this.agendarCitaForm.reset();
           this.horariosArray = [];
@@ -140,12 +133,11 @@ export class AgendarCitaComponent {
         },
         (error) => {
           console.error('Error al crear la cita:', error);
-//          this.toastr.error('Error al agendar la cita.', 'Error');
           this.isLoadingCita = false;
         }
       );
     } else {
-//      this.toastr.warning('Por favor, completa todos los campos requeridos y selecciona un horario.', 'Advertencia');
+      console.error('Error al crear la cita: Datos inválidos');
     }
   }
 
@@ -164,12 +156,10 @@ export class AgendarCitaComponent {
     this.ordenDePagoService.insertOrdenDePago(ordenPago).subscribe(
       (respuestaPago) => {
         console.log('Orden de pago creada exitosamente:', respuestaPago);
-//        this.toastr.success('Orden de pago creada.', 'Éxito');
         this.isLoadingPago = false;
       },
       (error) => {
         console.error('Error al crear la orden de pago:', error);
-//        this.toastr.error('Error al crear la orden de pago.', 'Error');
         this.isLoadingPago = false;
       }
     );
