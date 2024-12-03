@@ -31,6 +31,8 @@ export class AgendarCitaComponent {
   horariosArray: IHorarioResponse[] = [];
   citaRequest: ICitaRequest = {} as ICitaRequest;
   horarioSeleccionado: IHorarioResponse | null = null;
+  successMessage: string = '';
+  errorMessage: string = '';
 
   isLoadingPaciente: boolean = false;
   isLoadingHorarios: boolean = false;
@@ -114,11 +116,16 @@ export class AgendarCitaComponent {
       this.horarioSeleccionado = horario;
       console.log('Horario seleccionado:', horario);
     }
+    this.successMessage = '';
+    this.errorMessage = '';
   }
 
   agendarCita(): void {
     if (this.paciente && this.horarioSeleccionado && this.agendarCitaForm.valid) {
       this.isLoadingCita = true;
+      this.errorMessage = '';
+      this.successMessage = '';
+
       const nuevaCita: ICitaRequest = {
         idCita: null,
         dni: this.paciente.dni,
@@ -139,14 +146,17 @@ export class AgendarCitaComponent {
           this.horariosArray = [];
           this.horarioSeleccionado = null;
           this.isLoadingCita = false;
+          this.successMessage = 'La cita y la orden de pago se han creado exitosamente.';
         },
         (error) => {
           console.error('Error al crear la cita:', error);
           this.isLoadingCita = false;
+          this.errorMessage = 'Error al crear la cita. Por favor, intenta nuevamente.';
         }
       );
     } else {
       console.error('Error al crear la cita: Datos inválidos');
+      this.errorMessage = 'Por favor, selecciona un horario y completa el formulario correctamente.';
     }
   }
 

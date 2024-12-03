@@ -8,6 +8,7 @@
   font-family: 'Poppins', sans-serif;
 }
 
+/* Sidebar */
 .sidebar {
   position: fixed;
   top: 0;
@@ -84,13 +85,13 @@
 }
 
 .sidebar .nav-links li {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    height: auto;
-    position: relative;
-    list-style: none;
-    transition: all 0.4s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: auto;
+  position: relative;
+  list-style: none;
+  transition: all 0.4s ease;
 }
 
 .sidebar .nav-links li:hover {
@@ -98,8 +99,8 @@
 }
 
 .sidebar.close .nav-links li {
-    height: 70px;
-    display: flex;
+  height: 70px;
+  display: flex;
 }
 
 .sidebar .nav-links li i {
@@ -128,9 +129,9 @@
 }
 
 .sidebar.close .nav-links li a {
-    display: flex;
-    align-items: center;
-    height: 100%; /* Asegurar que el contenido ocupe toda la altura del elemento */
+  display: flex;
+  align-items: center;
+  height: 100%; /* Asegurar que el contenido ocupe toda la altura del elemento */
 }
 
 .sidebar .nav-links li a .link_name {
@@ -179,14 +180,13 @@
   opacity: 0;
   display: block;
   pointer-events: none;
-  transition: 0s;
+  transition: all 0.4s ease;
 }
 
 .sidebar.close .nav-links li:hover .sub-menu {
   top: 0;
   opacity: 1;
   pointer-events: auto;
-  transition: all 0.4s ease;
 }
 
 .sidebar .nav-links li .sub-menu .link_name {
@@ -212,6 +212,7 @@
   transform: translateY(-50%);
 }
 
+/* Logout Section */
 .sidebar .log-out-section {
   position: fixed;
   bottom: 0;
@@ -264,6 +265,7 @@
   font-size: 12px;
 }
 
+/* Main Content */
 .home-section {
   position: relative;
   background: #E4E9F7;
@@ -306,7 +308,7 @@
   }
 }
 
-/* General */
+/* General Container */
 .container {
   max-width: 1000px;
   margin: auto;
@@ -316,6 +318,7 @@
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
+/* Títulos */
 h2.text-center {
   font-size: 26px;
   font-weight: bold;
@@ -342,27 +345,51 @@ select.form-select:focus {
 button.btn {
   font-size: 16px;
   padding: 10px 20px;
-  background-color: #007bff;
-  border: none;
   border-radius: 8px;
-  color: #fff;
   transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-button.btn:hover {
+/* Específicos de Bootstrap */
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  color: #fff;
+}
+
+.btn-primary:hover {
   background-color: #0056b3;
 }
 
-button.btn:disabled {
+.btn-primary:disabled {
   background-color: #6c757d;
   cursor: not-allowed;
 }
 
-button i {
+.btn-success {
+  background-color: #28a745;
+  border: none;
+  color: #fff;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+.btn-success:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Iconos en Botones */
+button.btn i {
   margin-right: 5px;
   font-size: 18px;
 }
 
+/* Agendar Cita Botón */
 .agendar-cita-btn {
   width: 100%;
   font-size: 18px;
@@ -466,6 +493,10 @@ button i {
   background-color: #f9f9f9;
 }
 
+.table-section tbody tr.table-active {
+  background-color: #d1ecf1 !important;
+}
+
 /* Paginación */
 .pagination {
   margin-top: 20px;
@@ -492,6 +523,26 @@ button i {
   background-color: #e9ecef;
   color: #6c757d;
   pointer-events: none;
+}
+
+/* Mensajes de Confirmación y Error */
+.alert {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.alert-success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
 }
 
 /* Responsividad */
@@ -522,3 +573,54 @@ button i {
   }
 }
 
+/* Mensajes de Confirmación y Error */
+.alert-success,
+.alert-danger {
+  /* Añadimos una transición para suavizar la aparición */
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Spinner */
+.spinner-border {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Mejoras para la Tabla */
+.table-striped tbody tr:nth-of-type(odd) {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Botón "Agendar Cita" */
+.agendar-cita-form-section form .text-center button.btn-primary {
+  width: 100%;
+  padding: 15px;
+  font-size: 18px;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.agendar-cita-form-section form .text-center button.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+/* Botón "Seleccionar" */
+.table-section tbody tr button.btn-success {
+  width: 100%;
+}
+
+.table-section tbody tr button.btn-success:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+/* Estilos para Mensajes */
+.alert {
+  display: flex;
+  align-items: center;
+}
+
+.alert i {
+  margin-right: 10px;
+  font-size: 20px;
+}
