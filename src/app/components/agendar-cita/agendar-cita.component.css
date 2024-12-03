@@ -494,6 +494,29 @@ button i {
   pointer-events: none;
 }
 
+.estado-libre {
+  background-color: #d4edda; /* Verde claro */
+  color: #155724; /* Verde oscuro */
+  border: 1px solid #c3e6cb;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.estado-ocupado {
+  background-color: #f8d7da; /* Rojo claro */
+  color: #721c24; /* Rojo oscuro */
+  border: 1px solid #f5c6cb;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+
 /* Responsividad */
 @media (max-width: 768px) {
   .container {
