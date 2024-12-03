@@ -206,8 +206,8 @@
                   <span
                     class="badge"
                     [ngClass]="{
-                      'bg-success': horario.estado.toLowerCase() === 'libre',
-                      'bg-danger': horario.estado.toLowerCase() !== 'libre'
+                      'estado-libre': horario.estado.toLowerCase() === 'libre',
+                      'estado-ocupado': horario.estado.toLowerCase() !== 'libre'
                     }"
                   >
                     {{ horario.estado }}
