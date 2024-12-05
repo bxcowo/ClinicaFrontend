@@ -1,16 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { HorarioService } from './horario.service';
+import { PacienteService } from './paciente.service';
 
-describe('HorarioService', () => {
-  let service: HorarioService;
+describe('PacienteService', () => {
+  let service: PacienteService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [HorarioService]
     });
-    service = TestBed.inject(HorarioService);
+    service = TestBed.inject(PacienteService);
   });
 
   it('should be created', () => {

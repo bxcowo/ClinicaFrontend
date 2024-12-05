@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AgendarCitaComponent } from './agendar-cita.component';
 
 describe('AgendarCitaComponent', () => {
@@ -8,7 +8,7 @@ describe('AgendarCitaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AgendarCitaComponent]
+      imports: [AgendarCitaComponent, HttpClientTestingModule]
     })
     .compileComponents();
 

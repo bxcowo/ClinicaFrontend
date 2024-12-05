@@ -34,12 +34,12 @@ export class CrearHistorialComponent {
 
   initializeForm(): void {
     this.historialForm = this.fb.group({
-      dni: ['', Validators.required, Validators.pattern(/^\d+$/)],
+      dni: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       nombres: ['', Validators.required],
       apellidos: ['', Validators.required],
       fechaNacimiento: ['', Validators.required],
       correo: ['', [Validators.required, Validators.email]],
-      celular: ['', Validators.required, Validators.pattern(/^\d+$/)],
+      celular: ['', [Validators.required, Validators.pattern(/^\d+$/)]],
       domicilio: ['', Validators.required]
     });
 

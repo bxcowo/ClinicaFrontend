@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { VerificarHistorialComponent } from './verificar-historial.component';
 
 describe('VerificarHistorialComponent', () => {
@@ -8,7 +8,7 @@ describe('VerificarHistorialComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [VerificarHistorialComponent]
+      imports: [VerificarHistorialComponent, HttpClientTestingModule]
     })
     .compileComponents();
 
