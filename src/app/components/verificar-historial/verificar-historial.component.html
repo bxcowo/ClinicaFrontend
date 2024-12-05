@@ -62,7 +62,7 @@
       <div *ngIf="isValid !== null">
         <div *ngIf="isValid">
           <p class="message success">¡Historial encontrado! 😊</p>
-          <button (click)="onNavigate('/agendar-cita')">Agendar Cita</button>
+          <button (click)="onNavigate('agendar_cita')">Agendar Cita</button>
           <button (click)="onRetry()">Volver a Intentar</button>
         </div>
         <div *ngIf="!isValid">
